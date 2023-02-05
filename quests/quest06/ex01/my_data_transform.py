@@ -56,22 +56,28 @@ def modify_age(age):
 
     return age_group
 
-#convert single line csv file data to list of lists
 def my_csv_parser(param1, param2):
-    #split by new line char if present
+    #split by new line char if present ---> single list 
     if '\n' in param1:
         lst = param1.split('\n')
-    
-    i = 1; m = 1
-    #create new empty list
+
+    #create new empty list and append header fields
     new_list = []
+    new_list.append(lst[0])
+    # print(new_list)
+ 
+    i = 1
     while i < len(lst):
-        #check if list is empty or an empty string
-        # only add list to new_list if it is not empty
+    # for i in range(len(lst)):
+    #     j = 0
+    #     for j in range(len(lst[i])):
+            #check if list is empty or an empty string
+            # only add list to new_list if it is not empty
         if len(lst[i]) != 0:
-            result = lst[i].split(param2)
+            result = lst[i].split(param2) #XXXXXXXXXX
             # print(result)
             '''modify 'order at' data'''
+            # print(result[3])
             modified_coffee_order = set_coffee_order_time(result[9])
             result[9] = modified_coffee_order
             '''modify email data'''
@@ -82,24 +88,15 @@ def my_csv_parser(param1, param2):
             age = int(result[5])
             modified_age = modify_age(age)
             result[5] = modified_age
-            print(result)
-            new_list.append(result)
-            print("\n")
+            # print(result)
+            '''append to new_list'''
+            # new_list.append(result)
+            new_list.extend(result)
+            print(new_list)
+            print('\n')
         i += 1
 
-
-    
-    # i = 0
-    # while i < len(new_list):
-    #     print(new_list[i])
-    #     i += 1
-    
-
     return new_list
-
-
-
-
 
 csv_list = "Gender,FirstName,LastName,UserName,Email,Age,City,Device,Coffee Quantity,Order At\nMale,Carl,Wilderman,carl,wilderman_carl@yahoo.com,29,Seattle,Safari iPhone,2,2020-03-06 16:37:56\nMale,Marvin,Lind,marvin,marvin_lind@hotmail.com,77,Detroit,Chrome Android,2,2020-03-02 13:55:51\nFemale,Shanelle,Marquardt,shanelle,marquardt.shanelle@hotmail.com,21,Las Vegas,Chrome,1,2020-03-05 17:53:05\nFemale,Lavonne,Romaguera,lavonne,romaguera.lavonne@yahoo.com,81,Seattle,Chrome,2,2020-03-04 10:33:53\nMale,Derick,McLaughlin,derick,mclaughlin.derick@hotmail.com,47,Chicago,Chrome Android,1,2020-03-05 15:19:48\n"
 result = my_csv_parser(csv_list, ',')

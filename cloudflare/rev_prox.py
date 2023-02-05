@@ -1,22 +1,27 @@
 import socketserver
-import http.server 
-import urllib
-
-PORT = 4000
-
-class myproxy(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        url = self.path[1:]
-        self.send_response(200)
-        self.end_headers()
-        self.copyfile(urllib.urlopen(url), self.wfile)
+import socket
 
 def main():
-    # global PORT = 4000
-    server = HTTPServer(('localhost', PORT), myproxy)
-    print('Server running on port %s' %PORT)
-    httpd = socketserver.ForkingTCPServer(('', PORT), myproxy)
-    httpd.serve_forever()
+    '''creating socket object'''
+    s = socket.socket()
+    host = 'localhost'
+    port = 4000
+    print(f"Running reverse proxy on port {port}")
 
-if __name__ == '__main__':
+    '''binding to port'''
+    s.bind((host, port))
+    s.listen()
+    conn, addr = s.accept()
+
+    while True:
+        msg = "hello server from proxy"
+        # data = conn.recv(1024)
+        if not msg:
+            break
+        conn.sendall(msg)
+    
+    # s.close()
+    conn.close()
+
+if __name__ == "__main__":
     main()
