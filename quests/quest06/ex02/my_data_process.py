@@ -4,8 +4,6 @@ def convert_to_strings(arr):
     return result
 
 def delete_fields(arr):
-    # loop over outer dict and remove fields
-
     lst = []
 
     i = j = 0
@@ -16,8 +14,9 @@ def delete_fields(arr):
         del result[1:4]; del result[5]
         lst.append(result)
         i += 1
+    
 
-    # make newly created list 
+    # return list of strings into a single list of string
     new_list = []
     while j < len(lst):
         result = ','.join(lst[j])
@@ -30,10 +29,19 @@ def my_data_process(arr):
     # print(arr)
     
     # remove elements that are not needed
-    # 'FirstName' 1 'LastName' 2 'UserName' 3 'Coffee Quantity' 8:
     deleted = delete_fields(arr)
+    customer_data = {}
 
+    # place column headers as dicts
+    words = deleted[0].split(',')
+    # print(words)
+    for i in words:
+        customer_data[i] = {}
+    
+    for item in deleted:
 
+    
+    print(customer_data)
 
 
 
