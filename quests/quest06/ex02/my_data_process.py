@@ -2,30 +2,42 @@ def convert_to_strings(arr):
     result = arr.split(",")
     
     return result
+
+def delete_fields(arr):
+    # loop over outer dict and remove fields
+
+    lst = []
+
+    i = j = 0
+    # turn each list into a list of strings
+    # delete catagories and corresponding customer entries from list to reduce down to needed information
+    while i < len(arr):
+        result = arr[i].split(',')
+        del result[1:4]; del result[5]
+        lst.append(result)
+        i += 1
+
+    # make newly created list 
+    new_list = []
+    while j < len(lst):
+        result = ','.join(lst[j])
+        new_list.append(result)
+        j += 1
     
+    return new_list
 
 def my_data_process(arr):
-    result = {}
+    # print(arr)
+    
+    # remove elements that are not needed
+    # 'FirstName' 1 'LastName' 2 'UserName' 3 'Coffee Quantity' 8:
+    deleted = delete_fields(arr)
 
-    # remove header list (arr[0]) and send to convert_to_strings
-    # returns iterable of strings
-    first = arr.pop(0)
-    join = convert_to_strings(first)
-   
-    # create nested dicts
-    for item in join:
-        result[item] = {}
-    
-    for item in arr:
-        value = convert_to_strings(item)
-        
-        
-            
-             
-    
-    
 
-    print(result)
+
+
+
+
 
 
 
